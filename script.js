@@ -1,15 +1,15 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // 取得所有需要的元素
     const passwordModal = document.getElementById('passwordModal');
     const welcomeScreen = document.getElementById('welcomeScreen');
     const mainContent = document.getElementById('mainContent');
     const passwordInput = document.getElementById('passwordInput');
     const submitPassword = document.getElementById('submitPassword');
 
-    // 🎵 背景音樂與按鈕元素
     const bgm = document.getElementById('bgm');
     const musicToggle = document.getElementById('musicToggle');
 
-    // 播放音樂的輔助函式
+    // 🎵 播放音樂功能
     function playBgm() {
         if (bgm && bgm.paused) {
             bgm.play().then(() => {
@@ -19,12 +19,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     musicToggle.style.color = 'white';
                 }
             }).catch(error => {
-                console.log("自動播放受阻，等待手動點擊按鈕：", error);
+                console.log("自動播放被瀏覽器攔截：", error);
             });
         }
     }
 
-    // 暫停音樂的輔助函式
+    // 🎵 暫停音樂功能
     function pauseBgm() {
         if (bgm && !bgm.paused) {
             bgm.pause();
@@ -36,58 +36,64 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // 預先載入音樂
-    if (bgm) bgm.load();
+    // 預載音樂
+    if (bgm) {
+        try { bgm.load(); } catch (e) { console.log(e); }
+    }
 
-    // 🔑 密碼驗證邏輯
-    submitPassword.addEventListener('click', function () {
-        if (passwordInput.value.toLowerCase() === '1031') {
-            
-            // 👉 密碼正確的瞬間，嘗試自動播放背景音樂！
-            playBgm();
-
-            passwordModal.style.opacity = '0';
-            setTimeout(() => {
-                passwordModal.style.display = 'none';
-                welcomeScreen.style.display = 'flex';
-
-                setTimeout(() => {
-                    welcomeScreen.style.opacity = '0';
-                    setTimeout(() => {
-                        welcomeScreen.style.display = 'none';
-                        mainContent.style.display = 'block';
-                    }, 800);
-                }, 2500);
-            }, 500);
-        } else {
-            passwordInput.value = '';
-            passwordInput.placeholder = '寶寶重要的日子!';
-            passwordInput.style.borderColor = '#ff4d4d';
-            setTimeout(() => {
-                passwordInput.style.borderColor = '#ffb7c5';
-                passwordInput.placeholder = '四位數!';
-            }, 1500);
-        }
-    });
-
-    passwordInput.addEventListener('keypress', function (e) {
-        if (e.key === 'Enter') {
-            submitPassword.click();
-        }
-    });
-
-    // 🎵 右下角音樂播放按鈕點擊切換
-    if (musicToggle && bgm) {
-        musicToggle.addEventListener('click', function () {
-            if (bgm.paused) {
+    // 🔑 密碼解鎖邏輯
+    if (submitPassword && passwordInput) {
+        submitPassword.addEventListener('click', function () {
+            if (passwordInput.value.toLowerCase() === '1031') {
+                
+                // 密碼正確嘗試播音樂
                 playBgm();
+
+                if (passwordModal) passwordModal.style.opacity = '0';
+                setTimeout(() => {
+                    if (passwordModal) passwordModal.style.display = 'none';
+                    if (welcomeScreen) welcomeScreen.style.display = 'flex';
+
+                    setTimeout(() => {
+                        if (welcomeScreen) welcomeScreen.style.opacity = '0';
+                        setTimeout(() => {
+                            if (welcomeScreen) welcomeScreen.style.display = 'none';
+                            if (mainContent) mainContent.style.display = 'block';
+                        }, 800);
+                    }, 2500);
+                }, 500);
             } else {
-                pauseBgm();
+                passwordInput.value = '';
+                passwordInput.placeholder = '寶寶重要的日子!';
+                passwordInput.style.borderColor = '#ff4d4d';
+                setTimeout(() => {
+                    passwordInput.style.borderColor = '#ffb7c5';
+                    passwordInput.placeholder = '四位數!';
+                }, 1500);
+            }
+        });
+
+        passwordInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                submitPassword.click();
             }
         });
     }
 
-    // 📑 分頁切換邏輯
+    // 🎵 按鈕切換音樂
+    if (musicToggle) {
+        musicToggle.addEventListener('click', function () {
+            if (bgm) {
+                if (bgm.paused) {
+                    playBgm();
+                } else {
+                    pauseBgm();
+                }
+            }
+        });
+    }
+
+    // 📑 分頁切換
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -105,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ✉️ 告白信點擊展開
+    // ✉️ 點擊展開/收合告白信（加上相容性點擊保護）
     const loveLetter = document.getElementById('loveLetter');
     if (loveLetter) {
         loveLetter.addEventListener('click', function () {
@@ -113,9 +119,9 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 💖 飄浮愛心與小熊背景特效
+    // 💖 飄浮圖案效果
     function addFloatingElements() {
-        for (let i = 0; i < 15; i++) {
+        for (let i = 0; i < 12; i++) {
             const heart = document.createElement('div');
             heart.classList.add('heart');
             heart.innerHTML = '💕';
@@ -125,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.appendChild(heart);
         }
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
             const teddy = document.createElement('div');
             teddy.classList.add('teddy-bear');
             teddy.innerHTML = '🧸';
