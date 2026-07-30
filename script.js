@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', function () {
     if (submitPassword && passwordInput) {
         function handleLogin() {
             if (passwordInput.value.toLowerCase() === '1031') {
-                // 嘗試播放音樂
                 tryPlayBgm();
 
                 if (passwordModal) passwordModal.style.opacity = '0';
@@ -85,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // 🎵 4. 音樂開關按鈕控制
     if (musicToggle && bgm) {
         musicToggle.addEventListener('click', function (e) {
-            e.stopPropagation(); // 防止點擊事件冒泡
+            e.stopPropagation();
             if (bgm.paused) {
                 bgm.play().then(() => {
                     musicToggle.innerText = '⏸️ 暫停音樂';
