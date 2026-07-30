@@ -1,17 +1,56 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const passwordModal = document.getElementById('passwordModal');
     const welcomeScreen = document.getElementById('welcomeScreen');
     const mainContent = document.getElementById('mainContent');
     const passwordInput = document.getElementById('passwordInput');
     const submitPassword = document.getElementById('submitPassword');
 
-    submitPassword.addEventListener('click', function() {
+    // 🎵 背景音樂與按鈕元素
+    const bgm = document.getElementById('bgm');
+    const musicToggle = document.getElementById('musicToggle');
+
+    // 播放音樂的輔助函式
+    function playBgm() {
+        if (bgm && bgm.paused) {
+            bgm.play().then(() => {
+                if (musicToggle) {
+                    musicToggle.innerHTML = '⏸️ 暫停音樂';
+                    musicToggle.style.background = '#ff758c';
+                    musicToggle.style.color = 'white';
+                }
+            }).catch(error => {
+                console.log("自動播放受阻，等待手動點擊按鈕：", error);
+            });
+        }
+    }
+
+    // 暫停音樂的輔助函式
+    function pauseBgm() {
+        if (bgm && !bgm.paused) {
+            bgm.pause();
+            if (musicToggle) {
+                musicToggle.innerHTML = '🎵 播放音樂';
+                musicToggle.style.background = 'rgba(255, 255, 255, 0.9)';
+                musicToggle.style.color = '#ff758c';
+            }
+        }
+    }
+
+    // 預先載入音樂
+    if (bgm) bgm.load();
+
+    // 🔑 密碼驗證邏輯
+    submitPassword.addEventListener('click', function () {
         if (passwordInput.value.toLowerCase() === '1031') {
+            
+            // 👉 密碼正確的瞬間，嘗試自動播放背景音樂！
+            playBgm();
+
             passwordModal.style.opacity = '0';
             setTimeout(() => {
                 passwordModal.style.display = 'none';
                 welcomeScreen.style.display = 'flex';
-                
+
                 setTimeout(() => {
                     welcomeScreen.style.opacity = '0';
                     setTimeout(() => {
@@ -31,22 +70,34 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    passwordInput.addEventListener('keypress', function(e) {
+    passwordInput.addEventListener('keypress', function (e) {
         if (e.key === 'Enter') {
             submitPassword.click();
         }
     });
 
+    // 🎵 右下角音樂播放按鈕點擊切換
+    if (musicToggle && bgm) {
+        musicToggle.addEventListener('click', function () {
+            if (bgm.paused) {
+                playBgm();
+            } else {
+                pauseBgm();
+            }
+        });
+    }
+
+    // 📑 分頁切換邏輯
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
-    
+
     tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
+        tab.addEventListener('click', function () {
             const targetTab = this.getAttribute('data-tab');
-            
+
             tabs.forEach(t => t.classList.remove('active'));
             this.classList.add('active');
-            
+
             tabContents.forEach(content => {
                 content.classList.remove('active');
                 if (content.id === targetTab) content.classList.add('active');
@@ -54,11 +105,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // ✉️ 告白信點擊展開
     const loveLetter = document.getElementById('loveLetter');
-    loveLetter.addEventListener('click', function() {
-        this.classList.toggle('expanded');
-    });
+    if (loveLetter) {
+        loveLetter.addEventListener('click', function () {
+            this.classList.toggle('expanded');
+        });
+    }
 
+    // 💖 飄浮愛心與小熊背景特效
     function addFloatingElements() {
         for (let i = 0; i < 15; i++) {
             const heart = document.createElement('div');
@@ -69,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
             heart.style.animationDelay = Math.random() * 5 + 's';
             document.body.appendChild(heart);
         }
-        
+
         for (let i = 0; i < 5; i++) {
             const teddy = document.createElement('div');
             teddy.classList.add('teddy-bear');
@@ -83,29 +138,3 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addFloatingElements();
 });
-// 🎵 背景音樂優化版控制
-const bgm = document.getElementById('bgm');
-const musicToggle = document.getElementById('musicToggle');
-
-if (musicToggle && bgm) {
-    // 預先載入音樂
-    bgm.load();
-
-    musicToggle.addEventListener('click', function () {
-        if (bgm.paused) {
-            bgm.play().then(() => {
-                musicToggle.innerHTML = '⏸️ 暫停音樂';
-                musicToggle.style.background = '#ff758c';
-                musicToggle.style.color = 'white';
-            }).catch(error => {
-                console.log("播放失敗：", error);
-                alert("播放失敗，請再點擊一次試試看！");
-            });
-        } else {
-            bgm.pause();
-            musicToggle.innerHTML = '🎵 播放音樂';
-            musicToggle.style.background = 'rgba(255, 255, 255, 0.9)';
-            musicToggle.style.color = '#ff758c';
-        }
-    });
-}
