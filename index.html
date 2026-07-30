@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 💡 1. 網頁標題 -->
+    <title>給最愛的寶寶</title>
+    
+    <!-- ✍️ 引入超可愛少女手寫字體 (Yomogi & Zen Maru Gothic) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+    <!-- 🔒 密碼解鎖視窗 -->
+    <div class="password-modal" id="passwordModal">
+        <div class="password-content">
+            <!-- 💡 2. 密碼視窗標題與提示文字 -->
+            <h2>請輸入寶寶最重要的日子</h2>
+            <input type="password" class="password-input" id="passwordInput" placeholder="輸入寶寶出生的日子!...">
+            <button class="submit-btn" id="submitPassword">開啟驚喜</button>
+        </div>
+    </div>
+
+    <!-- 🌸 歡迎畫面 -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <!-- 💡 3. 解鎖成功後的歡迎詞 -->
+        <h1 class="welcome-message">這是厲害寶寶誕生的日子！ ❤️</h1>
+    </div>
+
+    <!-- 🏠 主要內容區 -->
+    <div class="container" id="mainContent" style="display: none;">
+        <!-- 上方選單分頁標籤 -->
+        <div class="tabs">
+            <button class="tab active" data-tab="love-letter">
+                <span>❤️</span> 告白信件
+            </button>
+            <button class="tab" data-tab="music">
+                <span>🎵</span> 專屬歌單
+            </button>
+            <button class="tab" data-tab="notes">
+                <span>📝</span> 貼心叮嚀
+            </button>
+            <button class="tab" data-tab="gallery">
+                <span>🌷</span> 回憶相簿
+            </button>
+        </div>
+
+        <div class="content-area">
+            <!-- ✉️ 分頁 1：告白信件內容 -->
+            <div class="tab-content active" id="love-letter">
+                <h2>給 最親愛的流特</h2>
+                <div class="letter" id="loveLetter">
+                    <div class="letter-header">
+                        <h3>這是寫給你的一封信</h3>
+                        <span>👇 點擊展開信件</span>
+                    </div>
+                    <div class="letter-content">
+                        <!-- 💡 4. 這裡修改你想對她說的話 -->
+                        <p>親愛的胖寶寶：</p>
+                        <p>已經跟寶寶在一起一年又九個月了，從日本相識，到回台灣的第一次見面，都還歷歷在目。</p>
+                        <p>一路經歷了你寫論文、畢業、到後來你去當兵，甚至簽了志願役，很高興能一起參與寶寶的人生軌跡。</p>
+                        <p>也謝謝寶寶包容我有時候的任性跟壞脾氣，你是最棒的，有盡力做好自己能做的事就好！</p>
+                        <p>愛你的，</p>
+                        <p>  璐菈菈 敬上 ❤️</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 🎵 分頁 2：音樂歌單 -->
+            <div class="tab-content" id="music">
+                <h2>代表我們的歌曲</h2>
+                <!-- 💡 5. 可以在這裡新增或修改歌曲 -->
+                <div class="song">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h4>でも、</h4>
+                        <p>高瀬統也、れん</p>
+                    </div>
+                </div>
+                <div class="song">
+                    <div class="song-icon">🎵</div>
+                    <div class="song-info">
+                        <h4>歲月神偷</h4>
+                        <p>張杰</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 📝 分頁 3：貼心小叮嚀 -->
+            <div class="tab-content" id="notes">
+                <h2>給流特的小叮嚀</h2>
+                <!-- 💡 6. 修改便條紙上的短句 -->
+                <div class="note">
+                    <p>寶寶不要太勞累哇 🌸</p>
+                </div>
+                <div class="note">
+                    <p>餓了就要吃飯！累了就要休息！要找我抱抱！</p>
+                </div>
+                <div class="note">
+                    <p>我也要變成寶寶的避風港！</p>
+                </div>
+            </div>
+
+            <!-- 🌷 分頁 4：照片牆 -->
+            <div class="tab-content" id="gallery">
+                <h2>屬於我們的美好回憶</h2>
+                <div class="gallery">
+                    <!-- 💡 7. 把裡面的 src="連結" 換成你自己的照片連結或本地圖片路徑 (例如: ./images/1.jpg) -->
+                    <div class="gallery-item">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1eaad721-3375-4d97-a5fa-cbf8a87d60b8.png">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/73632299-5dde-4ded-805a-88a7dcb4b5e4.png">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/e9890063-b481-46f6-97a1-9fc753211e19.png">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/4bc3dffd-4971-4223-b7e4-3699d2b97bbe.png">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/d0daff3c-1751-492b-9b74-de28ac48d384.png">
+                    </div>
+                    <div class="gallery-item">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/51f3ca74-2471-403f-bb99-751536acd7d9.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 背景動態小愛心與小熊 -->
+    <div class="heart" style="top: 10%; left: 5%;">❤️</div>
+    <div class="heart" style="top: 20%; right: 10%;">❤️</div>
+    <div class="heart" style="bottom: 15%; left: 15%;">❤️</div>
+    <div class="teddy-bear" style="top: 30%; left: 10%;">🧸</div>
+    <div class="teddy-bear" style="bottom: 10%; right: 5%;">🧸</div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>
