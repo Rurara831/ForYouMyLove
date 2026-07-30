@@ -83,3 +83,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
     addFloatingElements();
 });
+// 🎵 背景音樂控制功能
+const bgm = document.getElementById('bgm');
+const musicToggle = document.getElementById('musicToggle');
+let isPlaying = false;
+
+if (musicToggle && bgm) {
+    musicToggle.addEventListener('click', () => {
+        if (isPlaying) {
+            bgm.pause();
+            musicToggle.innerHTML = '🎵 播放音樂';
+            musicToggle.style.background = 'rgba(255, 255, 255, 0.9)';
+            musicToggle.style.color = '#ff758c';
+        } else {
+            bgm.play();
+            musicToggle.innerHTML = '⏸️ 暫停音樂';
+            musicToggle.style.background = '#ff758c';
+            musicToggle.style.color = 'white';
+        }
+        isPlaying = !isPlaying;
+    });
+}
