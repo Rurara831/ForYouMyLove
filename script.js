@@ -1,55 +1,38 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // 取得所有需要的元素
+
+    // 🔑 1. 密碼解鎖模組
+    const submitPassword = document.getElementById('submitPassword');
+    const passwordInput = document.getElementById('passwordInput');
     const passwordModal = document.getElementById('passwordModal');
     const welcomeScreen = document.getElementById('welcomeScreen');
     const mainContent = document.getElementById('mainContent');
-    const passwordInput = document.getElementById('passwordInput');
-    const submitPassword = document.getElementById('submitPassword');
 
+    // 🎵 音樂模組相關元素
     const bgm = document.getElementById('bgm');
     const musicToggle = document.getElementById('musicToggle');
 
-    // 🎵 播放音樂功能
-    function playBgm() {
+    function tryPlayBgm() {
         if (bgm && bgm.paused) {
             bgm.play().then(() => {
                 if (musicToggle) {
-                    musicToggle.innerHTML = '⏸️ 暫停音樂';
+                    musicToggle.innerText = '⏸️ 暫停音樂';
                     musicToggle.style.background = '#ff758c';
                     musicToggle.style.color = 'white';
                 }
-            }).catch(error => {
-                console.log("自動播放被瀏覽器攔截：", error);
+            }).catch(err => {
+                console.log("自動播放被瀏覽器阻擋：", err);
             });
         }
     }
 
-    // 🎵 暫停音樂功能
-    function pauseBgm() {
-        if (bgm && !bgm.paused) {
-            bgm.pause();
-            if (musicToggle) {
-                musicToggle.innerHTML = '🎵 播放音樂';
-                musicToggle.style.background = 'rgba(255, 255, 255, 0.9)';
-                musicToggle.style.color = '#ff758c';
-            }
-        }
-    }
-
-    // 預載音樂
-    if (bgm) {
-        try { bgm.load(); } catch (e) { console.log(e); }
-    }
-
-    // 🔑 密碼解鎖邏輯
     if (submitPassword && passwordInput) {
-        submitPassword.addEventListener('click', function () {
+        function handleLogin() {
             if (passwordInput.value.toLowerCase() === '1031') {
-                
-                // 密碼正確嘗試播音樂
-                playBgm();
+                // 嘗試播放音樂
+                tryPlayBgm();
 
                 if (passwordModal) passwordModal.style.opacity = '0';
+                
                 setTimeout(() => {
                     if (passwordModal) passwordModal.style.display = 'none';
                     if (welcomeScreen) welcomeScreen.style.display = 'flex';
@@ -60,40 +43,21 @@ document.addEventListener('DOMContentLoaded', function () {
                             if (welcomeScreen) welcomeScreen.style.display = 'none';
                             if (mainContent) mainContent.style.display = 'block';
                         }, 800);
-                    }, 2500);
+                    }, 2200);
                 }, 500);
             } else {
                 passwordInput.value = '';
                 passwordInput.placeholder = '寶寶重要的日子!';
-                passwordInput.style.borderColor = '#ff4d4d';
-                setTimeout(() => {
-                    passwordInput.style.borderColor = '#ffb7c5';
-                    passwordInput.placeholder = '四位數!';
-                }, 1500);
             }
-        });
+        }
 
+        submitPassword.addEventListener('click', handleLogin);
         passwordInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                submitPassword.click();
-            }
+            if (e.key === 'Enter') handleLogin();
         });
     }
 
-    // 🎵 按鈕切換音樂
-    if (musicToggle) {
-        musicToggle.addEventListener('click', function () {
-            if (bgm) {
-                if (bgm.paused) {
-                    playBgm();
-                } else {
-                    pauseBgm();
-                }
-            }
-        });
-    }
-
-    // 📑 分頁切換
+    // 📑 2. 分頁切換模組
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -102,45 +66,40 @@ document.addEventListener('DOMContentLoaded', function () {
             const targetTab = this.getAttribute('data-tab');
 
             tabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
+            tabContents.forEach(c => c.classList.remove('active'));
 
-            tabContents.forEach(content => {
-                content.classList.remove('active');
-                if (content.id === targetTab) content.classList.add('active');
-            });
+            this.classList.add('active');
+            const activeContent = document.getElementById(targetTab);
+            if (activeContent) activeContent.classList.add('active');
         });
     });
 
-    // ✉️ 點擊展開/收合告白信（加上相容性點擊保護）
+    // ✉️ 3. 告白信展開/收合
     const loveLetter = document.getElementById('loveLetter');
     if (loveLetter) {
-        loveLetter.addEventListener('click', function () {
+        loveLetter.addEventListener('click', function (e) {
             this.classList.toggle('expanded');
         });
     }
 
-    // 💖 飄浮圖案效果
-    function addFloatingElements() {
-        for (let i = 0; i < 12; i++) {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '💕';
-            heart.style.left = Math.random() * 100 + '%';
-            heart.style.top = Math.random() * 100 + '%';
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            document.body.appendChild(heart);
-        }
-
-        for (let i = 0; i < 4; i++) {
-            const teddy = document.createElement('div');
-            teddy.classList.add('teddy-bear');
-            teddy.innerHTML = '🧸';
-            teddy.style.left = Math.random() * 100 + '%';
-            teddy.style.top = Math.random() * 100 + '%';
-            teddy.style.animationDelay = Math.random() * 5 + 's';
-            document.body.appendChild(teddy);
-        }
+    // 🎵 4. 音樂開關按鈕控制
+    if (musicToggle && bgm) {
+        musicToggle.addEventListener('click', function (e) {
+            e.stopPropagation(); // 防止點擊事件冒泡
+            if (bgm.paused) {
+                bgm.play().then(() => {
+                    musicToggle.innerText = '⏸️ 暫停音樂';
+                    musicToggle.style.background = '#ff758c';
+                    musicToggle.style.color = 'white';
+                }).catch(err => {
+                    alert('無法播放音樂，請確認目錄下是否有 bgm.mp3 檔案！');
+                });
+            } else {
+                bgm.pause();
+                musicToggle.innerText = '🎵 播放音樂';
+                musicToggle.style.background = 'rgba(255, 255, 255, 0.95)';
+                musicToggle.style.color = '#ff758c';
+            }
+        });
     }
-
-    addFloatingElements();
 });

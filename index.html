@@ -1,79 +1,60 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 💡 1. 網頁標題 -->
-    <title>給最愛的寶寶</title>
-    
-    <!-- ✍️ 引入超可愛少女手寫字體 (Yomogi & Zen Maru Gothic) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+    <title>給最親愛的流特</title>
     <link rel="stylesheet" href="./style.css">
 </head>
-
 <body>
-    <!-- 🔒 密碼解鎖視窗 -->
-    <div class="password-modal" id="passwordModal">
-        <div class="password-content">
-            <!-- 💡 2. 密碼視窗標題與提示文字 -->
-            <h2>請輸入寶寶最重要的日子</h2>
-            <input type="password" class="password-input" id="passwordInput" placeholder="輸入寶寶出生的日子!...">
-            <button class="submit-btn" id="submitPassword">開啟驚喜</button>
+
+    <!-- 🔑 密碼彈窗 -->
+    <div id="passwordModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2>🔒 專屬我們的秘密</h2>
+            <p>請輸入寶寶最重要的日子：</p>
+            <input type="password" id="passwordInput" placeholder="四位數密碼" maxlength="4">
+            <button id="submitPassword">進入網站</button>
         </div>
     </div>
 
-    <!-- 🌸 歡迎畫面 -->
-    <div class="welcome-screen" id="welcomeScreen">
-        <!-- 💡 3. 解鎖成功後的歡迎詞 -->
-        <h1 class="welcome-message">這是厲害寶寶誕生的日子！ ❤️</h1>
+    <!-- 🌸 歡迎動畫畫面 -->
+    <div id="welcomeScreen" class="welcome-screen">
+        <div class="welcome-content">
+            <h1>❤️ 流特寶寶 ❤️</h1>
+            <p>歡迎來到專屬於我們的秘密基地...</p>
+        </div>
     </div>
 
-    <!-- 🏠 主要內容區 -->
-    <div class="container" id="mainContent" style="display: none;">
-        <!-- 上方選單分頁標籤 -->
-        <div class="tabs">
-            <button class="tab active" data-tab="love-letter">
-                <span>❤️</span> 告白信件
-            </button>
-            <button class="tab" data-tab="music">
-                <span>🎵</span> 專屬歌單
-            </button>
-            <button class="tab" data-tab="notes">
-                <span>📝</span> 貼心叮嚀
-            </button>
-            <button class="tab" data-tab="gallery">
-                <span>🌷</span> 回憶相簿
-            </button>
+    <!-- 🏠 網站主要內容區塊 -->
+    <div id="mainContent" class="main-container">
+        <!-- 導覽頁籤 -->
+        <div class="tab-nav">
+            <button class="tab active" data-tab="letter">❤️ 告白信件</button>
+            <button class="tab" data-tab="music">🎵 專屬歌單</button>
+            <button class="tab" data-tab="tips">📝 貼心叮嚀</button>
+            <button class="tab" data-tab="gallery">🌷 回憶相簿</button>
         </div>
 
-        <div class="content-area">
-            <!-- ✉️ 分頁 1：告白信件內容 -->
-            <div class="tab-content active" id="love-letter">
-                <h2>給 最親愛的流特</h2>
-                <div class="letter" id="loveLetter">
-                    <div class="letter-header">
-                        <h3>這是寫給你的一封信</h3>
-                        <span>👇 點擊展開信件</span>
-                    </div>
-                    <div class="letter-content">
-                        <!-- 💡 4. 這裡修改你想對她說的話 -->
-                        <p>親愛的胖寶寶：</p>
-                        <p>已經跟寶寶在一起一年又九個月了，從日本相識，到回台灣的第一次見面，都還歷歷在目。</p>
-                        <p>一路經歷了你寫論文、畢業、到後來你去當兵，甚至簽了志願役，很高興能一起參與寶寶的人生軌跡。</p>
-                        <p>也謝謝寶寶包容我有時候的任性跟壞脾氣，你是最棒的，有盡力做好自己能做的事就好！</p>
-                        <p>愛你的，</p>
-                        <p>  璐菈菈 敬上 ❤️</p>
-                    </div>
+        <!-- 💌 分頁 1：告白信件 -->
+        <div class="tab-content active" id="letter">
+            <div class="letter-box" id="loveLetter">
+                <div class="letter-header">
+                    <h3>給 最親愛的流特</h3>
+                    <span class="click-hint">👇 點擊展開信件</span>
+                </div>
+                <div class="letter-body">
+                    <p>這是寫給你的一封信...</p>
+                    <p>謝謝你一直以來的陪伴與包容，陪我度過每一個平凡又特別的日子。</p>
+                    <p>希望能和你一起創造更多美好的回憶，愛你唷！❤️</p>
                 </div>
             </div>
+        </div>
 
-            <!-- 🎵 分頁 2：音樂歌單 -->
-            <div class="tab-content" id="music">
-                <h2>代表我們的歌曲</h2>
-                <!-- 💡 5. 可以在這裡新增或修改歌曲 -->
+        <!-- 🎵 分頁 2：專屬歌單 -->
+        <div class="tab-content" id="music">
+            <h2>代表我們的歌曲</h2>
+            <a href="https://www.youtube.com/results?search_query=でも、高瀬統也" target="_blank" class="song-link">
                 <div class="song">
                     <div class="song-icon">🎵</div>
                     <div class="song-info">
@@ -81,6 +62,8 @@
                         <p>高瀬統也、れん</p>
                     </div>
                 </div>
+            </a>
+            <a href="https://www.youtube.com/results?search_query=歲月神偷+張杰" target="_blank" class="song-link">
                 <div class="song">
                     <div class="song-icon">🎵</div>
                     <div class="song-info">
@@ -88,74 +71,39 @@
                         <p>張杰</p>
                     </div>
                 </div>
-            </div>
+            </a>
+        </div>
 
-            <!-- 📝 分頁 3：貼心小叮嚀 -->
-            <div class="tab-content" id="notes">
-                <h2>給流特的小叮嚀</h2>
-                <!-- 💡 6. 修改便條紙上的短句 -->
-                <div class="note">
-                    <p>寶寶不要太勞累哇 🌸</p>
-                </div>
-                <div class="note">
-                    <p>餓了就要吃飯！累了就要休息！要找我抱抱！</p>
-                </div>
-                <div class="note">
-                    <p>我也要變成寶寶的避風港！</p>
-                </div>
-            </div>
+        <!-- 📝 分頁 3：貼心叮嚀 -->
+        <div class="tab-content" id="tips">
+            <h2>給寶寶的叮嚀小卡</h2>
+            <ul class="tips-list">
+                <li>天冷記得多穿衣服，不要感冒囉！</li>
+                <li>每天都要記得多喝水，照顧好自己。</li>
+                <li>累的時候隨時來找我，我一直在！</li>
+            </ul>
+        </div>
 
-            <!-- 🌷 分頁 4：照片牆 -->
-            <div class="tab-content" id="gallery">
-                <h2>屬於我們的美好回憶</h2>
-                <div class="gallery">
-                    <!-- 💡 7. 把裡面的 src="連結" 換成你自己的照片連結或本地圖片路徑 (例如: ./images/1.jpg) -->
-                    <div class="gallery-item">
-                        <img src="./images/01.jpg">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="./images/02.jpg">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="./images/03.jpg">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="./images/04.jpg">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="./images/05.jpg">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="./images/06.jpg">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="./images/07.jpg">
-                    </div>
-                    <div class="gallery-item">
-                        <img src="./images/08.jpg">
-                    </div>
-                </div>
-            </div>
-                    </div>
-                </div>
+        <!-- 🌷 分頁 4：照片牆 -->
+        <div class="tab-content" id="gallery">
+            <h2>屬於我們的美好回憶</h2>
+            <div class="gallery">
+                <div class="gallery-item"><img src="./images/01.jpg" alt="Memory 1"></div>
+                <div class="gallery-item"><img src="./images/02.jpg" alt="Memory 2"></div>
+                <div class="gallery-item"><img src="./images/03.jpg" alt="Memory 3"></div>
+                <div class="gallery-item"><img src="./images/04.jpg" alt="Memory 4"></div>
+                <div class="gallery-item"><img src="./images/05.jpg" alt="Memory 5"></div>
+                <div class="gallery-item"><img src="./images/06.jpg" alt="Memory 6"></div>
+                <div class="gallery-item"><img src="./images/07.jpg" alt="Memory 7"></div>
+                <div class="gallery-item"><img src="./images/08.jpg" alt="Memory 8"></div>
             </div>
         </div>
     </div>
 
-    <!-- 背景動態小愛心與小熊 -->
-    <div class="heart" style="top: 10%; left: 5%;">❤️</div>
-    <div class="heart" style="top: 20%; right: 10%;">❤️</div>
-    <div class="heart" style="bottom: 15%; left: 15%;">❤️</div>
-    <div class="teddy-bear" style="top: 30%; left: 10%;">🧸</div>
-    <div class="teddy-bear" style="bottom: 10%; right: 5%;">🧸</div>
-
-    <script src="./script.js"></script>
-<!-- 🎵 專屬背景音樂（控制按鈕浮動在右下角） -->
-    <audio id="bgm" src="./bgm.mp3" loop></audio>
+    <!-- 🎵 背景音樂（放在畫面右下角控制） -->
+    <audio id="bgm" src="./bgm.mp3" loop preload="auto"></audio>
     <button id="musicToggle" class="music-btn">🎵 播放音樂</button>
 
     <script src="./script.js"></script>
-
 </body>
-
 </html>
