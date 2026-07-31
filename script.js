@@ -121,15 +121,23 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // 💌 4. 立體拆信封點擊事件
+    // 💌 4. 立體拆信封與關閉事件
     const envelopeWrapper = document.getElementById('envelopeWrapper');
-    const seal = document.getElementById('seal');
 
     if (envelopeWrapper) {
-        envelopeWrapper.addEventListener('click', function () {
+        // 點擊信封區域：若未開啟則打開信封
+        envelopeWrapper.addEventListener('click', function (e) {
+            e.stopPropagation(); // 阻止點擊事件往外傳遞
             if (!this.classList.contains('open')) {
                 this.classList.add('open');
                 createHeartRain();
+            }
+        });
+
+        // 點擊頁面任意空白處：若信封已打開，則自動收回信封
+        document.addEventListener('click', function () {
+            if (envelopeWrapper.classList.contains('open')) {
+                envelopeWrapper.classList.remove('open');
             }
         });
     }
