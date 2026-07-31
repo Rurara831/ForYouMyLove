@@ -237,77 +237,81 @@ body {
     display: block;
 }
 
-/* 💌 立體信封封套樣式 (使用 clip-path 重構，完美適配所有手機) */
+/* 💌 信封外層防護容器 (防止手機螢幕歪斜) */
 .envelope-wrapper {
     position: relative;
     width: 100%;
-    max-width: 480px;
-    height: 260px;
-    margin: 20px auto;
-    perspective: 1000px;
+    max-width: 440px;
+    height: 250px;
+    margin: 30px auto;
     transition: height 0.6s ease;
 }
 
 .envelope-wrapper.open {
-    height: 480px;
+    height: 460px;
 }
 
+/* 信封主體卡片 */
 .envelope {
     position: relative;
     width: 100%;
-    height: 260px;
+    height: 250px;
     background: #ffb6c1;
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(255, 117, 140, 0.25);
     overflow: visible;
 }
 
-/* 上蓋三角形 (使用 clip-path 裁切，絕對不裂開、不歪斜) */
+/* 上蓋 - 使用純 SVG 與 0 誤差定位，確保完全合身 */
 .flap {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 140px;
-    background: #ffb3c6;
-    clip-path: polygon(0 0, 100% 0, 50% 100%);
-    transform-origin: top;
-    transition: transform 0.6s ease, z-index 0.6s ease;
+    height: 130px;
+    background: radial-gradient(circle at 50% 100%, #ffadb9 0%, #ffb3c6 100%);
+    border-radius: 16px 16px 0 0;
+    /* 極簡V字邊緣，絕不歪斜 */
+    mask: polygon(0 0, 100% 0, 50% 100%);
+    -webkit-mask: polygon(0 0, 100% 0, 50% 100%);
+    transform-origin: top center;
+    transition: transform 0.6s ease-in-out, z-index 0.6s;
     z-index: 5;
 }
 
-/* 下方口袋造型 (使用 clip-path 精準繪製) */
+/* 口袋口袋面 (蓋在信件前) */
 .pocket {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 260px;
-    background: #ffa6c1;
-    clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+    height: 100%;
+    background: linear-gradient(180deg, #ffa3be 0%, #ff9ebb 100%);
+    mask: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
+    -webkit-mask: polygon(0 0, 50% 45%, 100% 0, 100% 100%, 0 100%);
     border-radius: 0 0 16px 16px;
     z-index: 3;
 }
 
-@media (max-width: 520px) {
-    .envelope-wrapper, .envelope, .pocket {
+@media (max-width: 500px) {
+    .envelope-wrapper, .envelope {
         height: 220px;
     }
     .flap {
-        height: 120px;
+        height: 115px;
     }
     .envelope-wrapper.open {
-        height: 440px;
+        height: 420px;
     }
 }
 
 .seal {
     position: absolute;
-    top: 50%;
+    top: 115px;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50px;
-    height: 50px;
+    width: 52px;
+    height: 52px;
     background: #ff477e;
     color: white;
     border-radius: 50%;
@@ -316,25 +320,32 @@ body {
     align-items: center;
     font-size: 24px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 71, 126, 0.4);
+    box-shadow: 0 4px 12px rgba(255, 71, 126, 0.4);
     z-index: 6;
     transition: transform 0.3s ease;
+}
+
+@media (max-width: 500px) {
+    .seal {
+        top: 100px;
+    }
 }
 
 .seal:hover {
     transform: translate(-50%, -50%) scale(1.1);
 }
 
+/* 裡面寫的信紙 */
 .letter {
     position: absolute;
     bottom: 10px;
-    left: 4%;
-    width: 92%;
-    height: 230px;
+    left: 3%;
+    width: 94%;
+    height: 220px;
     background: #ffffff;
     border-radius: 12px;
     padding: 20px;
-    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
     transition: transform 0.8s ease, height 0.8s ease;
     z-index: 2;
     overflow: hidden;
@@ -369,6 +380,7 @@ body {
     margin-top: 15px;
 }
 
+/* 展開狀態 */
 .envelope-wrapper.open .flap {
     transform: rotateX(180deg);
     z-index: 1;
@@ -379,8 +391,8 @@ body {
 }
 
 .envelope-wrapper.open .letter {
-    transform: translateY(-150px);
-    height: 360px;
+    transform: translateY(-130px);
+    height: 350px;
     z-index: 4;
 }
 
