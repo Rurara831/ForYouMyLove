@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // ⏰ 1. 在一起時間計時器 (起算日：2023 年 5 月 1 日，對應一年 9 個月)
-    const startDate = new Date('2023-05-01T00:00:00');
+    // ⏰ 1. 在一起時間計時器 (紀念日：2024 年 11 月 1 日)
+    const startDate = new Date('2024-11-01T00:00:00');
 
     function updateTimer() {
         const now = new Date();
