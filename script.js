@@ -73,11 +73,45 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ✉️ 3. 告白信展開/收合
+    // 💖 滿屏愛心特效函數
+    function createHeartRain() {
+        const hearts = ['❤️', '💖', '💗', '💓', '💕', '🌸', '✨'];
+        const totalHearts = 30; // 飄飛愛心的數量
+
+        for (let i = 0; i < totalHearts; i++) {
+            setTimeout(() => {
+                const heart = document.createElement('div');
+                heart.classList.add('floating-heart');
+                heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+                
+                // 隨機發射位置（螢幕寬度 0%~100%）
+                heart.style.left = Math.random() * 100 + 'vw';
+                // 隨機字體大小
+                heart.style.fontSize = (Math.random() * 20 + 18) + 'px';
+                // 隨機動畫時間
+                heart.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+
+                document.body.appendChild(heart);
+
+                // 動畫結束後自動移除元素，避免卡頓
+                setTimeout(() => {
+                    heart.remove();
+                }, 3500);
+            }, i * 80); // 錯開生成時間，形成連續飄飛效果
+        }
+    }
+
+    // ✉️ 3. 告白信展開/收合 + 觸發愛心 rain
     const loveLetter = document.getElementById('loveLetter');
     if (loveLetter) {
         loveLetter.addEventListener('click', function (e) {
+            const isExpanding = !this.classList.contains('expanded');
             this.classList.toggle('expanded');
+
+            // 只有在「展開信件」時噴發滿屏愛心
+            if (isExpanding) {
+                createHeartRain();
+            }
         });
     }
 
