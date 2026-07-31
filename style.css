@@ -152,6 +152,12 @@ body {
     z-index: 10;
 }
 
+@media (max-width: 600px) {
+    .main-container {
+        padding: 18px 12px;
+    }
+}
+
 /* ⏰ 計時器卡片樣式 */
 .timer-card {
     background: linear-gradient(135deg, #fff0f5 0%, #ffe6ee 100%);
@@ -230,12 +236,12 @@ body {
     display: block;
 }
 
-/* 💌 立體信封封套樣式 */
+/* 💌 立體信封封套樣式（修正手機端歪掉問題） */
 .envelope-wrapper {
     position: relative;
     width: 100%;
-    max-width: 500px;
-    height: 280px;
+    max-width: 480px;
+    height: 260px;
     margin: 20px auto;
     perspective: 1000px;
     transition: height 0.6s ease;
@@ -255,52 +261,60 @@ body {
     overflow: visible;
 }
 
+/* 上蓋三角形：自動隨父容器寬度 100% 縮放 */
 .flap {
     position: absolute;
     top: 0;
     left: 0;
     width: 0;
     height: 0;
-    border-left: 250px solid transparent;
-    border-right: 250px solid transparent;
-    border-top: 150px solid #ffb3c6;
+    border-left: 240px solid transparent;
+    border-right: 240px solid transparent;
+    border-top: 140px solid #ffb3c6;
     transform-origin: top;
     transition: transform 0.6s ease, z-index 0.6s ease;
     z-index: 5;
 }
 
-@media (max-width: 550px) {
-    .flap {
-        border-left-width: 42vw;
-        border-right-width: 42vw;
-        border-top-width: 120px;
-    }
-}
-
+/* 下方口袋三角形：自動隨父容器寬度 100% 縮放 */
 .pocket {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 0;
     height: 0;
-    border-left: 250px solid #ffa6c1;
-    border-right: 250px solid #ffa6c1;
-    border-top: 130px solid transparent;
-    border-bottom: 130px solid #ffa6c1;
+    border-left: 240px solid #ffa6c1;
+    border-right: 240px solid #ffa6c1;
+    border-top: 120px solid transparent;
+    border-bottom: 140px solid #ffa6c1;
     border-radius: 0 0 16px 16px;
     z-index: 3;
 }
 
-@media (max-width: 550px) {
+/* 📱 針對手機與平板螢幕的完美自適應尺寸計算 */
+@media (max-width: 520px) {
+    .envelope-wrapper, .envelope {
+        height: 220px;
+    }
+    .flap {
+        border-left-width: calc(50vw - 32px);
+        border-right-width: calc(50vw - 32px);
+        border-top-width: 120px;
+    }
     .pocket {
-        border-left-width: 42vw;
-        border-right-width: 42vw;
+        border-left-width: calc(50vw - 32px);
+        border-right-width: calc(50vw - 32px);
+        border-top-width: 100px;
+        border-bottom-width: 120px;
+    }
+    .envelope-wrapper.open {
+        height: 440px;
     }
 }
 
 .seal {
     position: absolute;
-    top: 120px;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 50px;
@@ -325,9 +339,9 @@ body {
 .letter {
     position: absolute;
     bottom: 10px;
-    left: 5%;
-    width: 90%;
-    height: 240px;
+    left: 4%;
+    width: 92%;
+    height: 230px;
     background: #ffffff;
     border-radius: 12px;
     padding: 20px;
@@ -363,7 +377,7 @@ body {
     text-align: center;
     color: #ff85a2;
     font-size: 14px;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .envelope-wrapper.open .flap {
@@ -376,8 +390,8 @@ body {
 }
 
 .envelope-wrapper.open .letter {
-    transform: translateY(-160px);
-    height: 380px;
+    transform: translateY(-150px);
+    height: 360px;
     z-index: 4;
 }
 
@@ -474,8 +488,8 @@ body {
 /* 📸 拍立得風照片牆 */
 .gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 15px;
     margin-top: 20px;
 }
 
@@ -505,14 +519,14 @@ body {
 
 .polaroid img {
     width: 100%;
-    height: 150px;
+    height: 140px;
     object-fit: cover;
     border-radius: 4px;
 }
 
 .polaroid p {
     margin-top: 10px;
-    font-size: 13px;
+    font-size: 12px;
     color: #ff5e7e;
     font-weight: bold;
 }
