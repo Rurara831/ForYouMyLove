@@ -37,6 +37,18 @@
 
     <!-- 🏠 網站主要內容區塊 -->
     <div id="mainContent" class="main-container">
+        
+        <!-- ⏰ 在一起計時器卡片 -->
+        <div class="timer-card">
+            <div class="timer-title">💕 我們已經陪伴彼此 💕</div>
+            <div class="timer-display">
+                <div class="time-block"><span id="days">0</span><label>天</label></div>
+                <div class="time-block"><span id="hours">0</span><label>時</label></div>
+                <div class="time-block"><span id="minutes">0</span><label>分</label></div>
+                <div class="time-block"><span id="seconds">0</span><label>秒</label></div>
+            </div>
+        </div>
+
         <!-- 導覽頁籤 -->
         <div class="tab-nav">
             <button class="tab active" data-tab="letter">❤️ 告白信件</button>
@@ -45,25 +57,29 @@
             <button class="tab" data-tab="gallery">🌷 回憶相簿</button>
         </div>
 
-        <!-- 💌 分頁 1：告白信件 -->
+        <!-- 💌 分頁 1：互動拆信封告白信件 -->
         <div class="tab-content active" id="letter">
-            <div class="letter-box" id="loveLetter">
-                <div class="letter-header">
-                    <h3>給 最親愛的流特</h3>
-                    <span class="click-hint">👇 點擊展開信件</span>
-                </div>
-                <div class="letter-body">
-                    <p>親愛的胖寶寶：</p>
-                    <p>已經跟寶寶在一起一年又九個月了，從日本相識，到回台灣的第一次見面，都還歷歷在目。</p>
-                    <p>一路經歷了你寫論文、畢業、到後來你去當兵，甚至簽了志願役，很高興能一起參與寶寶的人生軌跡。</p>
-                    <p>也謝謝寶寶包容我有時候的任性跟壞脾氣，你是最棒的，有盡力做好自己能做的事就好！</p>
-                    
-                    <div class="letter-sign">
-                        <p>愛你的，</p>
-                        <p>璐菈菈 敬上 ❤️</p>
+            <div class="envelope-wrapper" id="envelopeWrapper">
+                <div class="envelope" id="envelope">
+                    <div class="flap"></div>
+                    <div class="pocket"></div>
+                    <div class="seal" id="seal">💌</div>
+                    <div class="letter">
+                        <div class="letter-inner">
+                            <h3>給 最親愛的流特</h3>
+                            <p>親愛的胖寶寶：</p>
+                            <p>已經跟寶寶在一起一年又九個月了，從日本相識，到回台灣的第一次見面，都還歷歷在目。</p>
+                            <p>一路經歷了你寫論文、畢業、到後來你去當兵，甚至簽了志願役，很高興能一起參與寶寶的人生軌跡。</p>
+                            <p>也謝謝寶寶包容我有時候的任性跟壞脾氣，你是最棒的，有盡力做好自己能做的事就好！</p>
+                            <div class="letter-sign">
+                                <p>愛你的，</p>
+                                <p>璐菈菈 敬上 ❤️</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            <p class="envelope-hint">✨ 點擊心型火漆印章開啟信封 ✨</p>
         </div>
 
         <!-- 🎵 分頁 2：專屬歌單 -->

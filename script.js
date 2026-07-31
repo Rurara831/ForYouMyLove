@@ -1,13 +1,38 @@
 document.addEventListener('DOMContentLoaded', function () {
 
-    // 🔑 1. 密碼解鎖模組
+    // ⏰ 1. 在一起時間計時器 (起算日：2023 年 5 月 1 日，對應一年 9 個月)
+    const startDate = new Date('2023-05-01T00:00:00');
+
+    function updateTimer() {
+        const now = new Date();
+        const diff = now - startDate;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / 1000 / 60) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        const daysElem = document.getElementById('days');
+        const hoursElem = document.getElementById('hours');
+        const minutesElem = document.getElementById('minutes');
+        const secondsElem = document.getElementById('seconds');
+
+        if (daysElem) daysElem.innerText = days;
+        if (hoursElem) hoursElem.innerText = hours;
+        if (minutesElem) minutesElem.innerText = minutes;
+        if (secondsElem) secondsElem.innerText = seconds;
+    }
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+
+    // 🔑 2. 密碼解鎖模組
     const submitPassword = document.getElementById('submitPassword');
     const passwordInput = document.getElementById('passwordInput');
     const passwordModal = document.getElementById('passwordModal');
     const welcomeScreen = document.getElementById('welcomeScreen');
     const mainContent = document.getElementById('mainContent');
 
-    // 🎵 音樂模組相關元素
     const bgm = document.getElementById('bgm');
     const musicToggle = document.getElementById('musicToggle');
 
@@ -20,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     musicToggle.style.color = 'white';
                 }
             }).catch(err => {
-                console.log("自動播放被瀏覽器阻擋：", err);
+                console.log("自動播放被阻擋：", err);
             });
         }
     }
@@ -56,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 📑 2. 分頁切換模組
+    // 📑 3. 分頁切換
     const tabs = document.querySelectorAll('.tab');
     const tabContents = document.querySelectorAll('.tab-content');
 
@@ -73,49 +98,43 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // 💖 滿屏愛心特效函數
+    // 💖 滿屏愛心雨動畫
     function createHeartRain() {
         const hearts = ['❤️', '💖', '💗', '💓', '💕', '🌸', '✨'];
-        const totalHearts = 30; // 飄飛愛心的數量
+        const totalHearts = 35;
 
         for (let i = 0; i < totalHearts; i++) {
             setTimeout(() => {
                 const heart = document.createElement('div');
                 heart.classList.add('floating-heart');
                 heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-                
-                // 隨機發射位置（螢幕寬度 0%~100%）
                 heart.style.left = Math.random() * 100 + 'vw';
-                // 隨機字體大小
                 heart.style.fontSize = (Math.random() * 20 + 18) + 'px';
-                // 隨機動畫時間
                 heart.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
 
                 document.body.appendChild(heart);
 
-                // 動畫結束後自動移除元素，避免卡頓
                 setTimeout(() => {
                     heart.remove();
                 }, 3500);
-            }, i * 80); // 錯開生成時間，形成連續飄飛效果
+            }, i * 70);
         }
     }
 
-    // ✉️ 3. 告白信展開/收合 + 觸發愛心 rain
-    const loveLetter = document.getElementById('loveLetter');
-    if (loveLetter) {
-        loveLetter.addEventListener('click', function (e) {
-            const isExpanding = !this.classList.contains('expanded');
-            this.classList.toggle('expanded');
+    // 💌 4. 立體拆信封點擊事件
+    const envelopeWrapper = document.getElementById('envelopeWrapper');
+    const seal = document.getElementById('seal');
 
-            // 只有在「展開信件」時噴發滿屏愛心
-            if (isExpanding) {
+    if (envelopeWrapper) {
+        envelopeWrapper.addEventListener('click', function () {
+            if (!this.classList.contains('open')) {
+                this.classList.add('open');
                 createHeartRain();
             }
         });
     }
 
-    // 🎵 4. 音樂開關按鈕控制
+    // 🎵 5. 音樂開關
     if (musicToggle && bgm) {
         musicToggle.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -124,8 +143,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     musicToggle.innerText = '⏸️ 暫停音樂';
                     musicToggle.style.background = '#ff758c';
                     musicToggle.style.color = 'white';
-                }).catch(err => {
-                    alert('無法播放音樂，請確認目錄下是否有 bgm.mp3 檔案！');
                 });
             } else {
                 bgm.pause();

@@ -18,7 +18,7 @@ body {
     position: relative;
 }
 
-/* 🔒 密碼彈窗 (可愛小熊風格) */
+/* 🔒 密碼彈窗 */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -150,6 +150,49 @@ body {
     border: 2px solid #fff0f5;
 }
 
+/* ⏰ 計時器卡片樣式 */
+.timer-card {
+    background: linear-gradient(135deg, #fff0f5 0%, #ffe6ee 100%);
+    border: 2px dashed #ffb3c6;
+    border-radius: 20px;
+    padding: 18px 15px;
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.timer-title {
+    color: #ff477e;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+
+.timer-display {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+}
+
+.time-block {
+    background: #ffffff;
+    padding: 8px 12px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(255, 140, 175, 0.15);
+    min-width: 60px;
+}
+
+.time-block span {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    color: #ff477e;
+}
+
+.time-block label {
+    font-size: 12px;
+    color: #ff85a2;
+}
+
 /* 導覽頁籤 */
 .tab-nav {
     display: flex;
@@ -177,7 +220,6 @@ body {
     box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3);
 }
 
-/* 分頁內容 */
 .tab-content {
     display: none;
 }
@@ -186,46 +228,129 @@ body {
     display: block;
 }
 
-/* 💌 信件樣式與落款靠右 */
-.letter-box {
-    background: #fff5f7;
-    border: 2px dashed #ffb7c5;
-    border-radius: 20px;
-    padding: 20px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+/* 💌 立體信封封套樣式 */
+.envelope-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 280px;
+    margin: 20px auto;
+    perspective: 1000px;
+    transition: height 0.6s ease;
 }
 
-.letter-header {
+.envelope-wrapper.open {
+    height: 480px; /* 打開時拉長高度容納信紙 */
+}
+
+.envelope {
+    position: relative;
+    width: 100%;
+    height: 260px;
+    background: #ffccd5;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(255, 117, 140, 0.25);
+    overflow: visible;
+}
+
+/* 信封蓋 */
+.flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 250px solid transparent;
+    border-right: 250px solid transparent;
+    border-top: 150px solid #ffb3c6;
+    transform-origin: top;
+    transition: transform 0.6s ease, z-index 0.6s ease;
+    z-index: 5;
+}
+
+@media (max-width: 550px) {
+    .flap {
+        border-left-width: 42vw;
+        border-right-width: 42vw;
+        border-top-width: 120px;
+    }
+}
+
+/* 信封口袋口袋正面 */
+.pocket {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    border-left: 250px solid #ffa6c1;
+    border-right: 250px solid #ffa6c1;
+    border-top: 130px solid transparent;
+    border-bottom: 130px solid #ffa6c1;
+    border-radius: 0 0 16px 16px;
+    z-index: 3;
+}
+
+@media (max-width: 550px) {
+    .pocket {
+        border-left-width: 42vw;
+        border-right-width: 42vw;
+    }
+}
+
+/* 封印火漆印章 */
+.seal {
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background: #ff477e;
+    color: white;
+    border-radius: 50%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 71, 126, 0.4);
+    z-index: 6;
+    transition: transform 0.3s ease;
 }
 
-.letter-header h3 {
-    color: #8b0032;
-    font-size: 18px;
+.seal:hover {
+    transform: translate(-50%, -50%) scale(1.1);
 }
 
-.click-hint {
-    color: #ff758c;
-    font-size: 13px;
-}
-
-.letter-body {
-    max-height: 0;
+/* 信紙本身 */
+.letter {
+    position: absolute;
+    bottom: 10px;
+    left: 5%;
+    width: 90%;
+    height: 240px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.8s ease, height 0.8s ease;
+    z-index: 2;
     overflow: hidden;
-    transition: max-height 0.5s ease, opacity 0.5s ease, margin-top 0.3s ease;
-    opacity: 0;
+    border: 2px dashed #ffccd5;
 }
 
-.letter-box.expanded .letter-body {
-    max-height: 600px;
-    opacity: 1;
-    margin-top: 15px;
+.letter-inner {
+    max-height: 100%;
+    overflow-y: auto;
 }
 
-.letter-body p {
+.letter-inner h3 {
+    color: #ff477e;
+    margin-bottom: 10px;
+}
+
+.letter-inner p {
     color: #555;
     line-height: 1.8;
     margin-bottom: 10px;
@@ -236,11 +361,30 @@ body {
     margin-top: 15px;
 }
 
-.letter-sign p {
-    margin-bottom: 5px;
+.envelope-hint {
+    text-align: center;
+    color: #ff85a2;
+    font-size: 14px;
+    margin-top: 10px;
 }
 
-/* 🎵 歌單與連結外觀 */
+/* ✉️ 信封打開動態樣式 */
+.envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope-wrapper.open .seal {
+    display: none;
+}
+
+.envelope-wrapper.open .letter {
+    transform: translateY(-160px);
+    height: 380px;
+    z-index: 4;
+}
+
+/* 🎵 歌單與連結 */
 .song-link {
     text-decoration: none;
     color: inherit;
@@ -306,7 +450,7 @@ body {
     box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
 }
 
-/* 🎵 浮動音樂控制按鈕 */
+/* 🎵 音樂按鈕 */
 .music-btn {
     position: fixed;
     bottom: 20px;
@@ -323,22 +467,7 @@ body {
     box-shadow: 0 4px 15px rgba(255, 117, 140, 0.3);
 }
 
-/* 💖 背景飄浮動態元素樣式 */
-.heart, .teddy-bear {
-    position: fixed;
-    font-size: 20px;
-    user-select: none;
-    pointer-events: none;
-    animation: floatAnim 6s ease-in-out infinite alternate;
-    opacity: 0.6;
-    z-index: 1;
-}
-
-@keyframes floatAnim {
-    0% { transform: translateY(0px) rotate(0deg); }
-    100% { transform: translateY(-20px) rotate(15deg); }
-}
-/* 💖 滿屏飄飛愛心動畫 */
+/* 💖 愛心雨動畫 */
 .floating-heart {
     position: fixed;
     bottom: -20px;
