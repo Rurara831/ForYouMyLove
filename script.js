@@ -144,7 +144,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const fortunes = [
         "今天的胖寶寶也是世界上最棒的！❤️",
         "今天適合跟璐菈菈索取一個甜甜的抱抱！抱抱！",
-        "累的時候隨時記得有我在！避风港預備中 ✨",
+        "累的時候隨時記得有我在！避風港預備中 ✨",
         "今天幸運指數 100%！因為有璐菈菈愛你 💖",
         "記得多喝水、多休息，照顧好自己喔 🌸",
         "寶寶盡力做好自己能做的事就超酷的了！加油 🧸"
@@ -180,25 +180,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     setInterval(createFallingPetal, 1200);
 
-    // 🐭 7. 滑鼠軌跡愛心跟隨
-    let lastMouseMove = 0;
-    document.addEventListener('mousemove', function (e) {
-        const now = Date.now();
-        if (now - lastMouseMove > 80) { // 控制產生頻率
-            lastMouseMove = now;
-            const cursorHeart = document.createElement('div');
-            cursorHeart.classList.add('cursor-heart');
-            cursorHeart.innerText = '💗';
-            cursorHeart.style.left = e.clientX + 'px';
-            cursorHeart.style.top = e.clientY + 'px';
+    // 🐭 7. 超流暢滑鼠/觸控軌跡愛心跟隨
+    let lastX = 0;
+    let lastY = 0;
+    const distanceThreshold = 12; // 移動超過 12px 即觸發，保證連貫緊密
 
-            document.body.appendChild(cursorHeart);
+    function createCursorHeart(x, y) {
+        const hearts = ['💗', '💖', '✨', '💕', '🌸'];
+        const cursorHeart = document.createElement('div');
+        cursorHeart.classList.add('cursor-heart');
+        cursorHeart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        
+        cursorHeart.style.left = x + 'px';
+        cursorHeart.style.top = y + 'px';
+        
+        const randomXOffset = (Math.random() - 0.5) * 40;
+        const randomRotate = (Math.random() - 0.5) * 60;
+        const randomSize = Math.random() * 6 + 12;
+        
+        cursorHeart.style.setProperty('--x-offset', `${randomXOffset}px`);
+        cursorHeart.style.setProperty('--rot', `${randomRotate}deg`);
+        cursorHeart.style.fontSize = `${randomSize}px`;
 
-            setTimeout(() => {
-                cursorHeart.remove();
-            }, 1000);
+        document.body.appendChild(cursorHeart);
+
+        setTimeout(() => {
+            cursorHeart.remove();
+        }, 800);
+    }
+
+    function handleMove(e) {
+        const x = e.clientX || (e.touches && e.touches[0].clientX);
+        const y = e.clientY || (e.touches && e.touches[0].clientY);
+
+        if (!x || !y) return;
+
+        const dist = Math.hypot(x - lastX, y - lastY);
+
+        if (dist > distanceThreshold) {
+            lastX = x;
+            lastY = y;
+            createCursorHeart(x, y);
         }
-    });
+    }
+
+    document.addEventListener('mousemove', handleMove);
+    document.addEventListener('touchmove', handleMove);
 
     // 🖼️ 8. 照片 Lightbox 放大預覽
     const lightbox = document.getElementById('lightbox');
