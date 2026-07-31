@@ -154,7 +154,7 @@ body {
 
 @media (max-width: 600px) {
     .main-container {
-        padding: 18px 12px;
+        padding: 20px 15px;
     }
 }
 
@@ -178,26 +178,27 @@ body {
 .timer-display {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 .time-block {
     background: #ffffff;
-    padding: 8px 12px;
+    padding: 8px 10px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(255, 140, 175, 0.15);
-    min-width: 60px;
+    flex: 1;
+    max-width: 70px;
 }
 
 .time-block span {
     display: block;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     color: #ff477e;
 }
 
 .time-block label {
-    font-size: 12px;
+    font-size: 11px;
     color: #ff85a2;
 }
 
@@ -211,7 +212,7 @@ body {
 }
 
 .tab {
-    padding: 10px 18px;
+    padding: 10px 16px;
     border: none;
     background: #fff0f3;
     color: #ff5e7e;
@@ -236,7 +237,7 @@ body {
     display: block;
 }
 
-/* 💌 立體信封封套樣式（修正手機端歪掉問題） */
+/* 💌 立體信封封套樣式 (使用 clip-path 重構，完美適配所有手機) */
 .envelope-wrapper {
     position: relative;
     width: 100%;
@@ -255,57 +256,45 @@ body {
     position: relative;
     width: 100%;
     height: 260px;
-    background: #ffccd5;
+    background: #ffb6c1;
     border-radius: 16px;
     box-shadow: 0 10px 25px rgba(255, 117, 140, 0.25);
     overflow: visible;
 }
 
-/* 上蓋三角形：自動隨父容器寬度 100% 縮放 */
+/* 上蓋三角形 (使用 clip-path 裁切，絕對不裂開、不歪斜) */
 .flap {
     position: absolute;
     top: 0;
     left: 0;
-    width: 0;
-    height: 0;
-    border-left: 240px solid transparent;
-    border-right: 240px solid transparent;
-    border-top: 140px solid #ffb3c6;
+    width: 100%;
+    height: 140px;
+    background: #ffb3c6;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
     transform-origin: top;
     transition: transform 0.6s ease, z-index 0.6s ease;
     z-index: 5;
 }
 
-/* 下方口袋三角形：自動隨父容器寬度 100% 縮放 */
+/* 下方口袋造型 (使用 clip-path 精準繪製) */
 .pocket {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0;
-    height: 0;
-    border-left: 240px solid #ffa6c1;
-    border-right: 240px solid #ffa6c1;
-    border-top: 120px solid transparent;
-    border-bottom: 140px solid #ffa6c1;
+    width: 100%;
+    height: 260px;
+    background: #ffa6c1;
+    clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
     border-radius: 0 0 16px 16px;
     z-index: 3;
 }
 
-/* 📱 針對手機與平板螢幕的完美自適應尺寸計算 */
 @media (max-width: 520px) {
-    .envelope-wrapper, .envelope {
+    .envelope-wrapper, .envelope, .pocket {
         height: 220px;
     }
     .flap {
-        border-left-width: calc(50vw - 32px);
-        border-right-width: calc(50vw - 32px);
-        border-top-width: 120px;
-    }
-    .pocket {
-        border-left-width: calc(50vw - 32px);
-        border-right-width: calc(50vw - 32px);
-        border-top-width: 100px;
-        border-bottom-width: 120px;
+        height: 120px;
     }
     .envelope-wrapper.open {
         height: 440px;
