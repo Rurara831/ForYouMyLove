@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <p class="envelope-hint">✨ 點擊心型火漆印章開啟信封 ✨</p>
+            <p class="envelope-hint">✨ 點擊心型火漆印章開啟信封（點擊空白處可收起）✨</p>
         </div>
 
         <!-- 🎵 分頁 2：專屬歌單 -->
@@ -105,7 +105,7 @@
             </a>
         </div>
 
-        <!-- 📝 分頁 3：貼心叮嚀 -->
+        <!-- 📝 分頁 3：貼心叮嚀與每日甜蜜籤餅 -->
         <div class="tab-content" id="tips">
             <h2>給寶寶的叮嚀小卡</h2>
             <ul class="tips-list">
@@ -113,22 +113,36 @@
                 <li>餓了就要吃吃！睏了就要睡睡！還要找我抱抱！</li>
                 <li>我也要成為寶寶的避風港！</li>
             </ul>
+
+            <!-- 🥠 每日給寶寶的一句話 -->
+            <div class="fortune-box">
+                <h3>🥠 每日愛心籤餅</h3>
+                <p id="fortuneText">今天給寶寶的專屬小語是...？</p>
+                <button id="drawFortuneBtn">✨ 抽一張給寶寶的小語</button>
+            </div>
         </div>
 
-        <!-- 🌷 分頁 4：照片牆 -->
+        <!-- 🌷 分頁 4：拍立得風照片牆 -->
         <div class="tab-content" id="gallery">
             <h2>屬於我們的美好回憶</h2>
             <div class="gallery">
-                <div class="gallery-item"><img src="./images/01.jpg" alt="Memory 1"></div>
-                <div class="gallery-item"><img src="./images/02.jpg" alt="Memory 2"></div>
-                <div class="gallery-item"><img src="./images/03.jpg" alt="Memory 3"></div>
-                <div class="gallery-item"><img src="./images/04.jpg" alt="Memory 4"></div>
-                <div class="gallery-item"><img src="./images/05.jpg" alt="Memory 5"></div>
-                <div class="gallery-item"><img src="./images/06.jpg" alt="Memory 6"></div>
-                <div class="gallery-item"><img src="./images/07.jpg" alt="Memory 7"></div>
-                <div class="gallery-item"><img src="./images/08.jpg" alt="Memory 8"></div>
+                <div class="gallery-item polaroid"><img src="./images/01.jpg" alt="Memory 1"><p>日本相識 🌸</p></div>
+                <div class="gallery-item polaroid"><img src="./images/02.jpg" alt="Memory 2"><p>美好時光 ✨</p></div>
+                <div class="gallery-item polaroid"><img src="./images/03.jpg" alt="Memory 3"><p>甜蜜回憶 ❤️</p></div>
+                <div class="gallery-item polaroid"><img src="./images/04.jpg" alt="Memory 4"><p>開心約會 🌷</p></div>
+                <div class="gallery-item polaroid"><img src="./images/05.jpg" alt="Memory 5"><p>最棒的寶寶 🧸</p></div>
+                <div class="gallery-item polaroid"><img src="./images/06.jpg" alt="Memory 6"><p>參與你的軌跡 💫</p></div>
+                <div class="gallery-item polaroid"><img src="./images/07.jpg" alt="Memory 7"><p>一直在一起 💖</p></div>
+                <div class="gallery-item polaroid"><img src="./images/08.jpg" alt="Memory 8"><p>愛你的璐菈菈 敬上 💌</p></div>
             </div>
         </div>
+    </div>
+
+    <!-- 🖼️ 照片放大全螢幕預覽 Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-content" id="lightboxImg">
+        <div id="lightboxCaption"></div>
     </div>
 
     <!-- 🎵 背景音樂（右下角） -->

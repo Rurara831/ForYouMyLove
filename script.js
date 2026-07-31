@@ -125,16 +125,14 @@ document.addEventListener('DOMContentLoaded', function () {
     const envelopeWrapper = document.getElementById('envelopeWrapper');
 
     if (envelopeWrapper) {
-        // 點擊信封區域：若未開啟則打開信封
         envelopeWrapper.addEventListener('click', function (e) {
-            e.stopPropagation(); // 阻止點擊事件往外傳遞
+            e.stopPropagation();
             if (!this.classList.contains('open')) {
                 this.classList.add('open');
                 createHeartRain();
             }
         });
 
-        // 點擊頁面任意空白處：若信封已打開，則自動收回信封
         document.addEventListener('click', function () {
             if (envelopeWrapper.classList.contains('open')) {
                 envelopeWrapper.classList.remove('open');
@@ -142,7 +140,99 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 🎵 5. 音樂開關
+    // 🥠 5. 每日愛心籤餅
+    const fortunes = [
+        "今天的胖寶寶也是世界上最棒的！❤️",
+        "今天適合跟璐菈菈索取一個甜甜的抱抱！抱抱！",
+        "累的時候隨時記得有我在！避风港預備中 ✨",
+        "今天幸運指數 100%！因為有璐菈菈愛你 💖",
+        "記得多喝水、多休息，照顧好自己喔 🌸",
+        "寶寶盡力做好自己能做的事就超酷的了！加油 🧸"
+    ];
+
+    const drawFortuneBtn = document.getElementById('drawFortuneBtn');
+    const fortuneText = document.getElementById('fortuneText');
+
+    if (drawFortuneBtn && fortuneText) {
+        drawFortuneBtn.addEventListener('click', function () {
+            const randomMsg = fortunes[Math.floor(Math.random() * fortunes.length)];
+            fortuneText.innerText = randomMsg;
+            fortuneText.style.color = '#ff477e';
+            fortuneText.style.fontWeight = 'bold';
+        });
+    }
+
+    // 🌸 6. 背景櫻花/愛心飄落
+    function createFallingPetal() {
+        const petals = ['🌸', '✨', '💖', '💕'];
+        const petal = document.createElement('div');
+        petal.classList.add('falling-sakura');
+        petal.innerText = petals[Math.floor(Math.random() * petals.length)];
+        petal.style.left = Math.random() * 100 + 'vw';
+        petal.style.fontSize = (Math.random() * 10 + 12) + 'px';
+        petal.style.animationDuration = (Math.random() * 3 + 5) + 's';
+
+        document.body.appendChild(petal);
+
+        setTimeout(() => {
+            petal.remove();
+        }, 8000);
+    }
+    setInterval(createFallingPetal, 1200);
+
+    // 🐭 7. 滑鼠軌跡愛心跟隨
+    let lastMouseMove = 0;
+    document.addEventListener('mousemove', function (e) {
+        const now = Date.now();
+        if (now - lastMouseMove > 80) { // 控制產生頻率
+            lastMouseMove = now;
+            const cursorHeart = document.createElement('div');
+            cursorHeart.classList.add('cursor-heart');
+            cursorHeart.innerText = '💗';
+            cursorHeart.style.left = e.clientX + 'px';
+            cursorHeart.style.top = e.clientY + 'px';
+
+            document.body.appendChild(cursorHeart);
+
+            setTimeout(() => {
+                cursorHeart.remove();
+            }, 1000);
+        }
+    });
+
+    // 🖼️ 8. 照片 Lightbox 放大預覽
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const lightboxClose = document.querySelector('.lightbox-close');
+    const polaroids = document.querySelectorAll('.polaroid');
+
+    polaroids.forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.stopPropagation();
+            const img = this.querySelector('img');
+            const caption = this.querySelector('p');
+            if (img && lightbox && lightboxImg) {
+                lightbox.style.display = 'flex';
+                lightboxImg.src = img.src;
+                if (lightboxCaption && caption) lightboxCaption.innerText = caption.innerText;
+            }
+        });
+    });
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', function () {
+            lightbox.style.display = 'none';
+        });
+    }
+
+    if (lightbox) {
+        lightbox.addEventListener('click', function () {
+            lightbox.style.display = 'none';
+        });
+    }
+
+    // 🎵 9. 音樂開關
     if (musicToggle && bgm) {
         musicToggle.addEventListener('click', function (e) {
             e.stopPropagation();

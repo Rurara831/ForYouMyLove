@@ -148,6 +148,8 @@ body {
     padding: 30px;
     box-shadow: 0 10px 30px rgba(255, 140, 165, 0.25);
     border: 2px solid #fff0f5;
+    position: relative;
+    z-index: 10;
 }
 
 /* ⏰ 計時器卡片樣式 */
@@ -240,7 +242,7 @@ body {
 }
 
 .envelope-wrapper.open {
-    height: 480px; /* 打開時拉長高度容納信紙 */
+    height: 480px;
 }
 
 .envelope {
@@ -253,7 +255,6 @@ body {
     overflow: visible;
 }
 
-/* 信封蓋 */
 .flap {
     position: absolute;
     top: 0;
@@ -276,7 +277,6 @@ body {
     }
 }
 
-/* 信封口袋口袋正面 */
 .pocket {
     position: absolute;
     bottom: 0;
@@ -298,7 +298,6 @@ body {
     }
 }
 
-/* 封印火漆印章 */
 .seal {
     position: absolute;
     top: 120px;
@@ -323,7 +322,6 @@ body {
     transform: translate(-50%, -50%) scale(1.1);
 }
 
-/* 信紙本身 */
 .letter {
     position: absolute;
     bottom: 10px;
@@ -368,7 +366,6 @@ body {
     margin-top: 10px;
 }
 
-/* ✉️ 信封打開動態樣式 */
 .envelope-wrapper.open .flap {
     transform: rotateX(180deg);
     z-index: 1;
@@ -434,20 +431,130 @@ body {
     color: #666;
 }
 
-/* 🌷 照片牆 */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 15px;
-    margin-top: 15px;
+/* 🥠 幸運籤餅卡片 */
+.fortune-box {
+    margin-top: 20px;
+    background: #fff8fa;
+    border: 2px solid #ffccd5;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
 }
 
-.gallery-item img {
+.fortune-box h3 {
+    color: #ff477e;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.fortune-box p {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 15px;
+    min-height: 24px;
+}
+
+.fortune-box button {
+    background: #ff758c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3);
+    transition: transform 0.2s;
+}
+
+.fortune-box button:active {
+    transform: scale(0.95);
+}
+
+/* 📸 拍立得風照片牆 */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.polaroid {
+    background: white;
+    padding: 10px 10px 15px 10px;
+    border-radius: 6px;
+    box-shadow: 0 6px 15px rgba(255, 140, 165, 0.2);
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.polaroid:nth-child(odd) {
+    transform: rotate(-2deg);
+}
+
+.polaroid:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.polaroid:hover {
+    transform: scale(1.05) rotate(0deg);
+    box-shadow: 0 10px 25px rgba(255, 117, 140, 0.35);
+    z-index: 5;
+}
+
+.polaroid img {
     width: 100%;
-    height: 160px;
+    height: 150px;
     object-fit: cover;
-    border-radius: 16px;
-    box-shadow: 0 4px 10px rgba(255, 182, 193, 0.3);
+    border-radius: 4px;
+}
+
+.polaroid p {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #ff5e7e;
+    font-weight: bold;
+}
+
+/* 🖼️ Lightbox 全螢幕照片預覽 */
+.lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.lightbox-content {
+    max-width: 85%;
+    max-height: 75vh;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+}
+
+#lightboxCaption {
+    margin-top: 15px;
+    color: white;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* 🎵 音樂按鈕 */
@@ -479,15 +586,37 @@ body {
 }
 
 @keyframes floatUp {
-    0% {
-        transform: translateY(0) scale(0.8) rotate(0deg);
-        opacity: 1;
-    }
-    50% {
-        opacity: 0.9;
-    }
-    100% {
-        transform: translateY(-105vh) scale(1.3) rotate(360deg);
-        opacity: 0;
-    }
+    0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 1; }
+    50% { opacity: 0.9; }
+    100% { transform: translateY(-105vh) scale(1.3) rotate(360deg); opacity: 0; }
+}
+
+/* 🌸 背景飄落櫻花動畫 */
+.falling-sakura {
+    position: fixed;
+    top: -20px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 1;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
+}
+
+/* 🐭 滑鼠軌跡小愛心 */
+.cursor-heart {
+    position: fixed;
+    font-size: 14px;
+    user-select: none;
+    pointer-events: none;
+    z-index: 9999;
+    animation: fadeCursor 1s ease-out forwards;
+}
+
+@keyframes fadeCursor {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -40px) scale(0.3); opacity: 0; }
 }
