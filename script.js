@@ -180,54 +180,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     setInterval(createFallingPetal, 1200);
 
-    // 🐭 7. 超流暢滑鼠/觸控軌跡愛心跟隨
-    let lastX = 0;
-    let lastY = 0;
-    const distanceThreshold = 12; // 移動超過 12px 即觸發，保證連貫緊密
-
-    function createCursorHeart(x, y) {
-        const hearts = ['💗', '💖', '✨', '💕', '🌸'];
-        const cursorHeart = document.createElement('div');
-        cursorHeart.classList.add('cursor-heart');
-        cursorHeart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
-        
-        cursorHeart.style.left = x + 'px';
-        cursorHeart.style.top = y + 'px';
-        
-        const randomXOffset = (Math.random() - 0.5) * 40;
-        const randomRotate = (Math.random() - 0.5) * 60;
-        const randomSize = Math.random() * 6 + 12;
-        
-        cursorHeart.style.setProperty('--x-offset', `${randomXOffset}px`);
-        cursorHeart.style.setProperty('--rot', `${randomRotate}deg`);
-        cursorHeart.style.fontSize = `${randomSize}px`;
-
-        document.body.appendChild(cursorHeart);
-
-        setTimeout(() => {
-            cursorHeart.remove();
-        }, 800);
-    }
-
-    function handleMove(e) {
-        const x = e.clientX || (e.touches && e.touches[0].clientX);
-        const y = e.clientY || (e.touches && e.touches[0].clientY);
-
-        if (!x || !y) return;
-
-        const dist = Math.hypot(x - lastX, y - lastY);
-
-        if (dist > distanceThreshold) {
-            lastX = x;
-            lastY = y;
-            createCursorHeart(x, y);
-        }
-    }
-
-    document.addEventListener('mousemove', handleMove);
-    document.addEventListener('touchmove', handleMove);
-
-    // 🖼️ 8. 照片 Lightbox 放大預覽
+    // 🖼️ 7. 照片 Lightbox 放大預覽
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
     const lightboxCaption = document.getElementById('lightboxCaption');
@@ -259,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // 🎵 9. 音樂開關
+    // 🎵 8. 音樂開關
     if (musicToggle && bgm) {
         musicToggle.addEventListener('click', function (e) {
             e.stopPropagation();

@@ -605,25 +605,3 @@ body {
     0% { transform: translateY(0) rotate(0deg); opacity: 1; }
     100% { transform: translateY(105vh) rotate(360deg); opacity: 0.2; }
 }
-
-/* 🐭 滑鼠軌跡小愛心優化 */
-.cursor-heart {
-    position: fixed;
-    font-size: 14px;
-    user-select: none;
-    pointer-events: none;
-    z-index: 9999;
-    will-change: transform, opacity;
-    animation: fadeCursor 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
-}
-
-@keyframes fadeCursor {
-    0% {
-        transform: translate(-50%, -50%) scale(1) rotate(0deg);
-        opacity: 0.9;
-    }
-    100% {
-        transform: translate(calc(-50% + var(--x-offset, 0px)), calc(-50% - 35px)) scale(0.3) rotate(var(--rot, 20deg));
-        opacity: 0;
-    }
-}
